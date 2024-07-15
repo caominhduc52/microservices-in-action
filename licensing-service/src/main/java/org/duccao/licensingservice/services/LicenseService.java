@@ -1,6 +1,10 @@
 package org.duccao.licensingservice.services;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import java.util.List;
+import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.TimeoutException;
 import org.duccao.licensingservice.configs.ServiceConfig;
 import org.duccao.licensingservice.models.License;
 import org.duccao.licensingservice.models.Organization;
@@ -48,6 +52,7 @@ public class LicenseService {
     return license.withComment(serviceConfig.getProperty());
   }
 
+  @CircuitBreaker(name = "organizationService")
   private Organization retrieveOrganizationInfo(String organizationId, String clientType) {
     return switch (clientType) {
       case "feign" -> {
@@ -84,4 +89,18 @@ public class LicenseService {
     return String.format("Deleting license with id %s for the organization %s", licenseId, organizationId);
   }
 
+  @CircuitBreaker(name = "licenseService")
+  public List<License> getLicensesByOrganization(String organizationId) throws TimeoutException {
+    sleep();
+    return licenseRepository.findByOrganizationId(organizationId);
+  }
+
+  private void sleep() throws TimeoutException {
+    try {
+      Thread.sleep(100);
+      throw new java.util.concurrent.TimeoutException();
+    } catch (InterruptedException e) {
+      System.out.println(e.getMessage());
+    }
+  }
 }

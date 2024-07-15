@@ -1,5 +1,7 @@
 package org.duccao.licensingservice.controllers;
 
+import java.util.List;
+import java.util.concurrent.TimeoutException;
 import org.duccao.licensingservice.models.License;
 import org.duccao.licensingservice.services.LicenseService;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,14 @@ public class LicensingController {
 
   public LicensingController(LicenseService licenseService) {
     this.licenseService = licenseService;
+  }
+
+  @GetMapping
+  public ResponseEntity<List<License>> getLicenseByOrganizationId(
+    @PathVariable("organizationId") String organizationId
+  ) throws TimeoutException {
+    List<License> licenses = licenseService.getLicensesByOrganization(organizationId);
+    return ResponseEntity.ok(licenses);
   }
 
   @GetMapping("/{id}/{clientType}")
