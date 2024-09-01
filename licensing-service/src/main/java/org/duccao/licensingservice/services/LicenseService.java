@@ -2,7 +2,6 @@ package org.duccao.licensingservice.services;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 import org.duccao.licensingservice.configs.ServiceConfig;
