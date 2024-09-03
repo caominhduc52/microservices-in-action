@@ -15,6 +15,20 @@ example:
   property: I AM DEV
 
 resilience4j:
+  bulkhead:
+    instances:
+      licenseServiceBulkhead:
+        max-concurrent-calls: 5
+        max-wait-duration:
+          seconds: 3
+        writable-stack-trace-enabled: true
+        event-consumer-buffer-size:
+  retry:
+    instances:
+      licenseServiceRetry:
+        max-attempts: 3
+        wait-duration:
+          seconds: 1
   circuitbreaker:
     instances:
       licenseService:

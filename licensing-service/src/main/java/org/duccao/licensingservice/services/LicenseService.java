@@ -1,6 +1,8 @@
 package org.duccao.licensingservice.services;
 
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;
@@ -88,10 +90,18 @@ public class LicenseService {
     return String.format("Deleting license with id %s for the organization %s", licenseId, organizationId);
   }
 
-  @CircuitBreaker(name = "licenseService")
+  @CircuitBreaker(name = "licenseService", fallbackMethod = "buildFallbackLicenses")
+  @Bulkhead(name = "licenseServiceBulkhead", fallbackMethod = "buildFallbackLicenses")
+  @Retry(name = "licenseServiceRetry", fallbackMethod = "buildFallbackLicenses")
   public List<License> getLicensesByOrganization(String organizationId) throws TimeoutException {
-    sleep();
     return licenseRepository.findByOrganizationId(organizationId);
+  }
+
+  public List<License> buildFallbackLicenses(String organizationId, TimeoutException exception) {
+    License license = new License();
+    license.setLicenseId(UUID.randomUUID().toString());
+    license.setComment("Sorry no license found for organization " + organizationId);
+    return List.of(license);
   }
 
   private void sleep() throws TimeoutException {
