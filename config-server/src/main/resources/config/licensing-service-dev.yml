@@ -28,7 +28,7 @@ resilience4j:
       licenseServiceRetry:
         max-attempts: 3
         wait-duration:
-          seconds: 1
+          seconds: 5
   circuitbreaker:
     instances:
       licenseService:

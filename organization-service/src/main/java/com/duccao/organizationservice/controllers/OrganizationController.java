@@ -38,7 +38,7 @@ public class OrganizationController {
   }
 
   @PutMapping(value = "/{id}")
-  public void updateOrganization(@PathVariable("organizationId") String id, @RequestBody Organization organization) {
+  public void updateOrganization(@PathVariable("id") String id, @RequestBody Organization organization) {
     organizationService.update(organization);
   }
 

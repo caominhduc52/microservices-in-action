@@ -2,8 +2,11 @@ package org.duccao.licensingservice.controllers;
 
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+import lombok.extern.slf4j.Slf4j;
 import org.duccao.licensingservice.models.License;
 import org.duccao.licensingservice.services.LicenseService;
+import org.duccao.licensingservice.utils.UserContext;
+import org.duccao.licensingservice.utils.UserContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/{organizationId}/licences")
+@Slf4j
 public class LicensingController {
 
   private final LicenseService licenseService;
@@ -28,6 +32,8 @@ public class LicensingController {
   public ResponseEntity<List<License>> getLicenseByOrganizationId(
     @PathVariable("organizationId") String organizationId
   ) throws TimeoutException {
+    String correlationId = UserContextHolder.getContext().getCorrelationId();
+    log.info("Get correlationId: {}", correlationId);
     List<License> licenses = licenseService.getLicensesByOrganization(organizationId);
     return ResponseEntity.ok(licenses);
   }
