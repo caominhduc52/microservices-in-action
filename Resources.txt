@@ -1,0 +1,13 @@
+Token Relay, Spring Cloud Gateway + RestClient Propaged Useful Resources
+- https://github.com/benwilcock/tap-demo-config-files/blob/eaba1cbd25b112bfb651d2ee1ba0bc0ba3312a3d/gateway.yaml#L4
+- https://github.com/benwilcock/spring-cloud-demo-tap/blob/main/gateway/pom.xml
+- https://benwilcock.github.io/spring-cloud-gateway-demo/secured-gateway.html
+- https://github.com/eabykov/keycloak-compose/blob/main/compose.yml
+- https://github.com/OlgaMaciaszek/interface-clients-spring-io-2024-demo/blob/d2e81b557eed7db5dac76792520360ed0a5567fa/http-verification-client/src/main/java/com/example/http/verification/client/HttpVerificationClientApplication.java#L42 (new way to create http client spring boot 3)
+- https://github.com/timtebeek/spring-security-samples/blob/main/spring-cloud-gateway-oidc-tokenrelay/README.adoc
+- https://benwilcock.github.io/spring-cloud-gateway-demo/secured-gateway.html
+- https://piotrminkowski.com/2024/03/01/microservices-with-spring-cloud-gateway-oauth2-and-keycloak/
+- https://www.learnnowlab.com/Spring-Cloud-Gateway-with-Spring-Security/
+- https://github.com/spring-projects/spring-security/issues/13588
+- https://github.com/mjeffrey/spring-security-oauth2-restclient-interceptor/tree/main/src/main
+- https://www.freedium.cfd/https://medium.com/@AlexanderObregon/how-to-leverage-the-rolesallowed-annotation-for-optimal-security-in-java-spring-fd0c38b92693

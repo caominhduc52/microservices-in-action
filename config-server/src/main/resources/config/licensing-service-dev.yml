@@ -3,6 +3,11 @@ spring:
     username: postgres
     url: jdbc:postgresql://localhost:5432/ostock_dev
     password: postgres
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8090
 eureka:
   instance:
     preferIpAddress: 'true'

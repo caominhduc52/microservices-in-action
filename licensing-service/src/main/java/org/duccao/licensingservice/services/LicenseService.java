@@ -12,6 +12,7 @@ import org.duccao.licensingservice.models.Organization;
 import org.duccao.licensingservice.repositories.LicenseRepository;
 import org.duccao.licensingservice.services.clients.OrganizationDiscoveryClient;
 import org.duccao.licensingservice.services.clients.OrganizationFeignClient;
+import org.duccao.licensingservice.services.clients.OrganizationRestClient;
 import org.duccao.licensingservice.services.clients.OrganizationRestTemplateClient;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +24,18 @@ public class LicenseService {
   private final OrganizationDiscoveryClient organizationDiscoveryClient;
   private final OrganizationRestTemplateClient organizationRestTemplateClient;
   private final OrganizationFeignClient organizationFeignClient;
+  private final OrganizationRestClient organizationRestClient;
 
   public LicenseService(LicenseRepository licenseRepository, ServiceConfig serviceConfig,
                         OrganizationDiscoveryClient organizationDiscoveryClient,
                         OrganizationRestTemplateClient organizationRestTemplateClient,
-                        OrganizationFeignClient organizationFeignClient) {
+                        OrganizationFeignClient organizationFeignClient, OrganizationRestClient organizationRestClient) {
     this.licenseRepository = licenseRepository;
     this.serviceConfig = serviceConfig;
     this.organizationDiscoveryClient = organizationDiscoveryClient;
     this.organizationRestTemplateClient = organizationRestTemplateClient;
     this.organizationFeignClient = organizationFeignClient;
+    this.organizationRestClient = organizationRestClient;
   }
 
   public License getLicense(String id, String organizationId, String clientType) {
@@ -67,6 +70,10 @@ public class LicenseService {
       case "discovery" -> {
         System.out.println("I am using the discovery client");
         yield organizationDiscoveryClient.getOrganization(organizationId);
+      }
+      case "restClient" -> {
+        System.out.println("I am using the rest client");
+        yield organizationRestClient.getOrganization(organizationId);
       }
       default -> organizationRestTemplateClient.getOrganization(organizationId);
     };

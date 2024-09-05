@@ -7,6 +7,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 import org.duccao.licensingservice.utils.UserContext;
 import org.duccao.licensingservice.utils.UserContextHolder;
 import org.slf4j.Logger;
@@ -21,9 +22,8 @@ import org.springframework.stereotype.Component;
  * @since 9/4/2024
  */
 @Component
+@Slf4j
 public class UserContextFilter implements Filter {
-
-  private static final Logger logger = LoggerFactory.getLogger(UserContextFilter.class);
 
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -36,7 +36,7 @@ public class UserContextFilter implements Filter {
     context.setOrganizationId(httpServletRequest.getHeader(UserContext.ORGANIZATION_ID));
     context.setAuthToken(httpServletRequest.getHeader(UserContext.AUTH_TOKEN));
 
-    logger.debug("UserContextFilter Correlation id: {}", context.getCorrelationId());
+    log.debug("UserContextFilter Correlation id: {}", context.getCorrelationId());
 
     filterChain.doFilter(servletRequest, servletResponse);
   }

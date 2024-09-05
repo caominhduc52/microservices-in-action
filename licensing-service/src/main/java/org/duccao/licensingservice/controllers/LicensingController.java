@@ -1,5 +1,6 @@
 package org.duccao.licensingservice.controllers;
 
+import jakarta.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/{organizationId}/licences")
+@RequestMapping("/api/v1/{organizationId}/licenses")
 @Slf4j
 public class LicensingController {
 
@@ -39,6 +40,7 @@ public class LicensingController {
   }
 
   @GetMapping("/{id}/{clientType}")
+  @RolesAllowed("ADMIN")
   public ResponseEntity<License> getLicense(@PathVariable(name = "organizationId") String organizationId,
                                             @PathVariable(name = "id") String id,
                                             @PathVariable(name = "clientType") String clientType

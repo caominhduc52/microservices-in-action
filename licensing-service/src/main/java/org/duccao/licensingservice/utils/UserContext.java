@@ -14,7 +14,7 @@ public class UserContext {
 
   public static final String CORRELATION_ID = "x-correlation-id";
   public static final String USER_ID = "x-user-id";
-  public static final String AUTH_TOKEN = "x-auth-token";
+  public static final String AUTH_TOKEN = "Authorization";
   public static final String ORGANIZATION_ID = "x-organization-id";
 
   private String correlationId;

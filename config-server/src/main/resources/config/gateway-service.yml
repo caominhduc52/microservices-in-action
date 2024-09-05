@@ -20,17 +20,35 @@ eureka:
       defaultZone: http://localhost:8070/eureka
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8090/realms/spmia-realm/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8090/realms/spmia-realm
+        registration:
+          ostock:
+            provider: keycloak
+            client-id: ostock
+            client-secret: tR0bTLoXYzZOjN3E1MBym6tgU907gK0A
+            authorization-grant-type: password
+            scope: basic
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes:
-        - id: organization-service
-          uri: lb://organization-service
-          predicates:
-            - Path=/organizations/**
-          filters:
-            - RewritePath=/organizations/(?<path>.*), /$\{path}
-            - AddResponseHeader=x-user-id,duccaominhsiu
+      default-filters:
+        - TokenRelay=
+#      routes:
+#        - id: organization-service
+#          uri: lb://organization-service
+#          predicates:
+#            - Path=/organizations/**
+#          filters:
+#            - RewritePath=/organizations/(?<path>.*), /$\{path}
+#            - AddResponseHeader=x-user-id,duccaominhsiu
