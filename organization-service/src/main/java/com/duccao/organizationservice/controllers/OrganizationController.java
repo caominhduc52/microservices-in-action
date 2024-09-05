@@ -2,11 +2,8 @@ package com.duccao.organizationservice.controllers;
 
 import com.duccao.organizationservice.models.Organization;
 import com.duccao.organizationservice.services.OrganizationService;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,16 +27,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrganizationController {
 
   private final OrganizationService organizationService;
-  private final KafkaTemplate<String, String> kafkaTemplate;
 
-  public OrganizationController(OrganizationService organizationService, KafkaTemplate<String, String> kafkaTemplate) {
+  public OrganizationController(OrganizationService organizationService) {
     this.organizationService = organizationService;
-    this.kafkaTemplate = kafkaTemplate;
   }
 
   @GetMapping(value = "/{id}")
   public ResponseEntity<Organization> getOrganization(@PathVariable("id") String id) {
-    kafkaTemplate.sendDefault("1", "Duc cao");
     return ResponseEntity.ok(organizationService.findById(id));
   }
 

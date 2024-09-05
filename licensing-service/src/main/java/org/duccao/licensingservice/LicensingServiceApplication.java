@@ -1,7 +1,6 @@
 package org.duccao.licensingservice;
 
 import java.util.List;
-import org.duccao.licensingservice.interceptors.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -27,12 +26,12 @@ public class LicensingServiceApplication {
 	public RestTemplate restTemplate() {
 		RestTemplate restTemplate = new RestTemplate();
 		List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
-		if (interceptors.isEmpty()) {
-			restTemplate.setInterceptors(List.of(new UserContextInterceptor()));
-		} else {
-			interceptors.add(new UserContextInterceptor());
-			restTemplate.setInterceptors(interceptors);
-		}
+//		if (interceptors.isEmpty()) {
+//			restTemplate.setInterceptors(List.of(new UserContextInterceptor()));
+//		} else {
+//			interceptors.add(new UserContextInterceptor());
+//			restTemplate.setInterceptors(interceptors);
+//		}
 		return restTemplate;
 	}
 }

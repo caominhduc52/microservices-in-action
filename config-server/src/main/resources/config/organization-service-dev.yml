@@ -44,3 +44,18 @@ kafka:
   max-partition-fetch-bytes: 100000000
   auto-offset-reset-config: "earliest"
   request-timeout-ms: 60000
+
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    enabled-by-default: 'true'
