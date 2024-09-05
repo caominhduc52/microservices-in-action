@@ -28,5 +28,7 @@ public class AuthorizationTokenFilter implements Filter {
 
     String token = httpServletRequest.getHeader("Authorization");
     log.info("Authorization token: {}", token);
+
+    filterChain.doFilter(servletRequest, servletResponse);
   }
 }

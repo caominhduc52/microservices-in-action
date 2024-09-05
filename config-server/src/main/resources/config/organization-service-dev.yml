@@ -35,3 +35,12 @@ example:
 
 server:
   port: 8081
+
+kafka:
+  bootstrap-server: http://localhost:9094
+  group-id: duccao
+  reply-message-maximum-size: 100000000
+  max-request-size: 100000000
+  max-partition-fetch-bytes: 100000000
+  auto-offset-reset-config: "earliest"
+  request-timeout-ms: 60000

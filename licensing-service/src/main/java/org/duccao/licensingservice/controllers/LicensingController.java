@@ -40,7 +40,6 @@ public class LicensingController {
   }
 
   @GetMapping("/{id}/{clientType}")
-  @RolesAllowed("ADMIN")
   public ResponseEntity<License> getLicense(@PathVariable(name = "organizationId") String organizationId,
                                             @PathVariable(name = "id") String id,
                                             @PathVariable(name = "clientType") String clientType
