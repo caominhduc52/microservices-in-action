@@ -1,3 +1,7 @@
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
 spring:
   security:
     oauth2:
@@ -47,7 +51,6 @@ kafka:
 
 management:
   tracing:
-    enabled: true
     sampling:
       probability: 1.0
   endpoint:
